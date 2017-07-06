@@ -1,6 +1,5 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
 
 var app = express();
 var port = 3000;
@@ -19,7 +18,7 @@ var mysql = require("mysql");
 var connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "",
+    password: "root",
     database: "ethereum"
 });
 
@@ -30,51 +29,43 @@ connection.connect(function(err) {
     }
 
     console.log("connected as id " + connection.threadId);
-
 });
 
-app.get("/", function(req, res) {
-    connection.query("SELECT * FROM plans;", function(err, data) {
-        if (err) {
-            throw err;
-        }
 
-        res.render("index", { plans: data });
-
-    });
-});
-
-app.post("/", function(req, res) {
-    connection.query("INSERT INTO plans (plan) VALUES (?)", [req.body.plan], function(err, result) {
-        if (err) {
-            throw err;
-        }
-
-        res.redirect("/");
-    });
-});
-
-app.post("/delete/:id", function(req, res) {
-    connection.query("DELETE FROM plans WHERE id = ?", [req.params.id], function(err, result) {
-        if (err) {
-            throw err;
-        }
-
-        res.redirect("/");
-    });
-});
-
-app.post("/update/:id", function(req, res) {
-
-    connection.query("UPDATE plans SET plan = ? WHERE id = ?", [
-        req.body.plan, req.params.id
-    ], function(err, result) {
-        if (err) {
-            throw err;
-        }
-
-        res.redirect("/");
-    });
-});
+// app.get("/", function(req, res) {
+//     connection.query("SELECT * FROM blocksize;", function(err, data) {
+//         if (err) {
+//             throw err;
+//         }
+//
+//         res.render("index", { plans: data });
+//
+//     });
+// });
+// app.post("/", function(req, res) {
+//     connection.query("INSERT INTO blocksize (blocksize) VALUES (?)", [req.body.plan], function(err, result) {
+//         if (err) {
+//             throw err;
+//         }
+//
+//         res.redirect("/");
+//     });
+// });
 
 app.listen(port);
+
+//Psuedocode,
+//**Visualizing data**
+//need to GET database data from the mysql server.
+//Then need to POST the data to the controller.
+//get data from controller and post to the view
+
+// **manipulating data**
+//get userinput from the view and post to the  controller and then post data to
+// module and then manipulate the server based on that
+//post to the index.handlebars?? or test.html
+//set routes from
+
+//**for queries**
+//need to join two tables info.
+
