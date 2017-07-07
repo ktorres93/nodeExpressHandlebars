@@ -32,16 +32,17 @@ connection.connect(function(err) {
 });
 
 
-// app.get("/", function(req, res) {
-//     connection.query("SELECT * FROM blocksize;", function(err, data) {
-//         if (err) {
-//             throw err;
-//         }
-//
-//         res.render("index", { plans: data });
-//
-//     });
-// });
+app.get("/", function(req, res) {
+    console.log("working");
+    connection.query("SELECT * FROM blocksize;", function(err, data) {
+        if (err) {
+            throw err;
+        }
+
+        res.render("index", { blocksize: JSON.stringify(data) });
+
+    });
+});
 // app.post("/", function(req, res) {
 //     connection.query("INSERT INTO blocksize (blocksize) VALUES (?)", [req.body.plan], function(err, result) {
 //         if (err) {
